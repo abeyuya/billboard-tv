@@ -35,7 +35,7 @@ gulp.task('build:js', function() {
     .bundle()
     .on('error', errorHandler)
     .pipe(source(name + '.js'))
-    .pipe(gulpif(true, streamify(uglify({ mangle: false })))) // gulpif true なら jsのminifyをする
+    .pipe(gulpif(false, streamify(uglify({ mangle: false })))) // gulpif true なら jsのminifyをする
     .pipe(gulp.dest(DIST_DIR + '/js'));
   });
 });
