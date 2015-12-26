@@ -15,33 +15,40 @@ var connect     = require('gulp-connect');
 var runSequence = require('run-sequence');
 var packageJson = require('./package.json');
 var rimraf      = require('rimraf');
+var sass        = require('gulp-sass');
 
 var SRC_DIR = './src';
 var DIST_DIR = './build';
-var BUILD_TARGET_JS_FILES = ['app'];
+var BUILD_TARGET_JS_FILES = ['application'];
 
 /**
- * browserify
- */
-gulp.task('browserify', function() {
+* browserify
+*/
+gulp.task('build:js', function() {
   _.each(BUILD_TARGET_JS_FILES, function(name) {
     return browserify({
       entries: [SRC_DIR + '/js/' + name + '.js'],
       transform: [reactify],
-      paths: packageJson.browserify.paths,
-      debug: packageJson.browserify.debug
+      paths: './src',
+      debug: true
     })
-      .bundle()
-      .on('error', errorHandler)
-      .pipe(source(name + '.js'))
-      .pipe(gulpif(true, streamify(uglify({ mangle: false })))) // gulpif true なら jsのminifyをする
-      .pipe(gulp.dest(DIST_DIR + '/js'));
+    .bundle()
+    .on('error', errorHandler)
+    .pipe(source(name + '.js'))
+    .pipe(gulpif(true, streamify(uglify({ mangle: false })))) // gulpif true なら jsのminifyをする
+    .pipe(gulp.dest(DIST_DIR + '/js'));
   });
 });
 
-gulp.task('copy', function() {
-  return gulp.src(['src/**/*.html'])
-             .pipe(gulp.dest(DIST_DIR));
+gulp.task('build:sass', function() {
+  gulp.src(SRC_DIR + '/css/**/*.scss')
+  .pipe(sass().on('error', sass.logError))
+  .pipe(gulp.dest(DIST_DIR + '/css'));
+});
+
+gulp.task('copy:html', function() {
+  return gulp.src([SRC_DIR + '/**/*.html'], {base: 'src'})
+  .pipe(gulp.dest(DIST_DIR));
 });
 
 /**
@@ -55,7 +62,7 @@ var errorHandler = function(error) {
 * clean
 */
 gulp.task('clean', function() {
-  rimraf(DIST_DIR, {}, function(){});
+  rimraf(DIST_DIR + '/', {}, function(){});
 });
 
 /**
@@ -73,8 +80,10 @@ gulp.task('connect', function() {
 * watch
 */
 gulp.task('watch', function() {
-  gulp.watch(SRC_DIR + '/**/*.js', ['browserify']);
-  gulp.watch(SRC_DIR + '/**/*.jsx', ['browserify']);
+  gulp.watch(SRC_DIR + '/**/*.js', ['build:js']);
+  gulp.watch(SRC_DIR + '/**/*.jsx', ['build:js']);
+  gulp.watch(SRC_DIR + '/**/*.html', ['copy:html']);
+  gulp.watch(SRC_DIR + '/**/*.scss', ['build:sass']);
 });
 
 
@@ -86,8 +95,9 @@ gulp.task('default', function() {});
 gulp.task('build', function(callback) {
   runSequence(
     'clean',
-    'copy',
-    'browserify',
+    'copy:html',
+    'build:js',
+    'build:sass',
     callback
   );
 });
