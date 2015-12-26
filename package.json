@@ -5,7 +5,8 @@
   "main": "index.js",
   "repository": "git@bitbucket.org:abeyuya/billtube-frontend.git",
   "dependencies": {
-    "http-server": "^0.8.5"
+    "http-server": "^0.8.5",
+    "superagent": "^1.6.1"
   },
   "devDependencies": {
     "browserify": "^12.0.1",

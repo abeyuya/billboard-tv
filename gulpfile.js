@@ -51,6 +51,12 @@ gulp.task('copy:html', function() {
   .pipe(gulp.dest(DIST_DIR));
 });
 
+gulp.task('copy:json', function() {
+  // TODO: 本番デプロイまでには消す
+  return gulp.src([SRC_DIR + '/**/*.json'], {base: 'src'})
+  .pipe(gulp.dest(DIST_DIR));
+});
+
 /**
 * error handler
 */
@@ -83,6 +89,7 @@ gulp.task('watch', function() {
   gulp.watch(SRC_DIR + '/**/*.js', ['build:js']);
   gulp.watch(SRC_DIR + '/**/*.jsx', ['build:js']);
   gulp.watch(SRC_DIR + '/**/*.html', ['copy:html']);
+  gulp.watch(SRC_DIR + '/**/*.html', ['copy:json']);
   gulp.watch(SRC_DIR + '/**/*.scss', ['build:sass']);
 });
 
@@ -96,6 +103,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'clean',
     'copy:html',
+    'copy:json',
     'build:js',
     'build:sass',
     callback
