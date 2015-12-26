@@ -1,0 +1,16 @@
+{
+  "name": "billtube-frontend",
+  "version": "1.0.0",
+  "description": "billtube-frontend",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.8.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "abeyuya",
+  "license": "MIT"
+}
