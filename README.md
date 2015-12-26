@@ -1,5 +1,11 @@
 # 開発環境
 
 ```
-npm start
+npm run server
+```
+
+# ビルド
+
+```
+npm run build
 ```
