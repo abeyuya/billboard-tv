@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 
-var RankingList = require('./components/ranking_list.js');
+var RootView = require('./components/root_view.js');
 
 ReactDom.render(
-  <RankingList />,
-  document.getElementById('todo-app')
+  <RootView />,
+  document.getElementById('container')
 );

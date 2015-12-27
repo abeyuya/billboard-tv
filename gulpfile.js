@@ -87,9 +87,8 @@ gulp.task('connect', function() {
 */
 gulp.task('watch', function() {
   gulp.watch(SRC_DIR + '/**/*.js', ['build:js']);
-  gulp.watch(SRC_DIR + '/**/*.jsx', ['build:js']);
   gulp.watch(SRC_DIR + '/**/*.html', ['copy:html']);
-  gulp.watch(SRC_DIR + '/**/*.html', ['copy:json']);
+  gulp.watch(SRC_DIR + '/**/*.json', ['copy:json']); // TODO: 本番の頃にはいらない
   gulp.watch(SRC_DIR + '/**/*.scss', ['build:sass']);
 });
 
