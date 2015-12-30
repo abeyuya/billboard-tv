@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    bundle: './src/js/application.js'
+    bundle: './src/js/application.jsx'
   },
   output: {
     path: path.join(__dirname, 'build/js'),
@@ -15,10 +15,11 @@ module.exports = {
         exclude: /node_modules/,
         test: /\.js[x]?$/,
         query: {
-          cacheDirectory: true,
+          cacheDirectory: false,
           presets: ['react', 'es2015']
         }
       }
     ]
-  }
+  },
+  cache:false
 };

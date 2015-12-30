@@ -5,8 +5,10 @@
   "main": "index.js",
   "repository": "git@bitbucket.org:abeyuya/billtube-frontend.git",
   "dependencies": {
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react": "^0.14.1",
+    "react-dom": "^0.14.1",
+    "react-youtube": "^5.0.0",
+    "superagent": "^1.6.1"
   },
   "devDependencies": {
     "babel-core": "^6.3.26",
@@ -21,6 +23,7 @@
   },
   "scripts": {
     "start": "gulp server",
+    "build:dev": "gulp build:development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "abeyuya",

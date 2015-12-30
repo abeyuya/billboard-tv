@@ -1,10 +1,12 @@
 var React = require('react');
 var request = require('superagent');
 
-var RankingList = require('./ranking_list.js');
-var RankingDate = require('./ranking_date.js');
-var YoutubePlayer = require('./youtube_player.js');
-
+var RankingList = require('./ranking_list.jsx');
+var RankingDate = require('./ranking_date.jsx');
+var YoutubePlayer = require('./youtube_player.jsx');
+// console.log(<RankingList />);
+// console.log(<RankingDate />);
+// console.log(<YoutubePlayer />);
 
 var RootView = React.createClass({
   getInitialState:function(){
@@ -23,9 +25,10 @@ var RootView = React.createClass({
     .end(function(err, res){
       if (err) { alert(res.text); }
       // console.log(res.body);
-      this.setState({ranking_date: res.body.date});
-      this.setState({ranking_list: res.body.ranking});
-      this.setState({now_playing_video_id: res.body.ranking[0].video_id});
+      var json = JSON.parse(res.text);
+      this.setState({ranking_date: json.date});
+      this.setState({ranking_list: json.ranking});
+      this.setState({now_playing_video_id: json.ranking[0].video_id});
     }.bind(this));
   },
   render:function(){
