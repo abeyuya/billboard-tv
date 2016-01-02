@@ -35,7 +35,7 @@ gulp.task('compile:js:production', shell.task([
 
 gulp.task('watch', function() {
   gulp.watch(SRC_DIR + '/**/*.html', ['compile:html']);
-  gulp.watch(SRC_DIR + '/**/*.json', ['compile:json']); // TODO: 本番の頃にはいらない
+  gulp.watch(SRC_DIR + '/**/*.json', ['compile:json']);
   gulp.watch(SRC_DIR + '/**/*.js',   ['compile:js:development']);
   gulp.watch(SRC_DIR + '/**/*.jsx',  ['compile:js:development']);
 });

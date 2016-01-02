@@ -16,7 +16,7 @@ module.exports = {
         test: /\.js[x]?$/,
         query: {
           cacheDirectory: false,
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015', 'stage-0']
         }
       }
     ]
