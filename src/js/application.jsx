@@ -1,7 +1,6 @@
-var React = require('react');
-var ReactDom = require('react-dom');
-
-var RootView = require('./components/root_view.jsx');
+import React    from 'react';
+import ReactDom from 'react-dom';
+import RootView from './components/root_view.jsx';
 
 ReactDom.render(
   <RootView />,

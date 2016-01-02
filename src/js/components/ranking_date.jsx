@@ -1,12 +1,10 @@
-var React = require('react');
+import React from 'react';
 
-var RankingDate = React.createClass({
-  render:function() {
+export default class RankingDate extends React.Component {
+  render() {
     // console.log('date: ' + this.props.ranking_date);
     return (
       <div className="ranking_date">{this.props.ranking_date}</div>
     );
   }
-});
-
-module.exports = RankingDate;
+};

@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 
-var RankingList = React.createClass({
-  render: function() {
+export default class RankingList extends React.Component {
+  render() {
     // console.log('ranking_list:' + this.props.ranking_list);
     var list = this.props.ranking_list.map(function(record){
       return (
@@ -19,6 +19,4 @@ var RankingList = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = RankingList;
+};

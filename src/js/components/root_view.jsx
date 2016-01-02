@@ -1,26 +1,25 @@
-var React = require('react');
-var request = require('superagent');
+import React         from 'react';
+import request       from 'superagent';
+import RankingList   from './ranking_list.jsx';
+import RankingDate   from './ranking_date.jsx';
+import YoutubePlayer from './youtube_player.jsx';
 
-var RankingList = require('./ranking_list.jsx');
-var RankingDate = require('./ranking_date.jsx');
-var YoutubePlayer = require('./youtube_player.jsx');
-// console.log(<RankingList />);
-// console.log(<RankingDate />);
-// console.log(<YoutubePlayer />);
-
-var RootView = React.createClass({
-  getInitialState:function(){
-    return {
+export default class RootView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       ranking_date: '',
       ranking_list: [],
       now_playing_video_id: ''
     };
-  },
-  componentDidMount:function(){
+  }
+  
+  componentDidMount(){
     // console.log('didMount');
     this.fetchRankingJson();
-  },
-  fetchRankingJson:function(){
+  }
+  
+  fetchRankingJson(){
     request.get('/ranking.json')
     .end(function(err, res){
       if (err) { alert(res.text); }
@@ -30,8 +29,9 @@ var RootView = React.createClass({
       this.setState({ranking_list: json.ranking});
       this.setState({now_playing_video_id: json.ranking[0].video_id});
     }.bind(this));
-  },
-  render:function(){
+  }
+  
+  render(){
     // console.log(this.state.now_playing_video_id);
     return (
       <div className="root_view">
@@ -41,6 +41,4 @@ var RootView = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = RootView;
+};
