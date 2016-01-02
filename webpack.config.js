@@ -15,9 +15,11 @@ module.exports = {
         exclude: /node_modules/,
         test: /\.js[x]?$/,
         query: {
+          cacheDirectory: false,
           presets: ['react', 'es2015', 'stage-0']
         }
       }
     ]
-  }
+  },
+  cache:false
 };

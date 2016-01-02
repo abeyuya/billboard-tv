@@ -12,6 +12,7 @@ export default class RootView extends React.Component {
       ranking_list: [],
       now_playing_video_id: ''
     };
+    // this.onTapSong = this.onTapSong.bind(this);
   }
   
   componentDidMount(){
@@ -25,10 +26,16 @@ export default class RootView extends React.Component {
       if (err) { alert(res.text); }
       // console.log(res.body);
       var json = JSON.parse(res.text);
-      this.setState({ranking_date: json.date});
-      this.setState({ranking_list: json.ranking});
-      this.setState({now_playing_video_id: json.ranking[0].video_id});
+      this.setState({
+        ranking_date: json.date,
+        ranking_list: json.ranking,
+        now_playing_video_id: json.ranking[0].video_id
+      });
     }.bind(this));
+  }
+  
+  onTapSong(video_id) {
+    console.log('click video_id:' + video_id);
   }
   
   render(){
@@ -37,7 +44,7 @@ export default class RootView extends React.Component {
       <div className="root_view">
         <RankingDate ranking_date={this.state.ranking_date} />
         <YoutubePlayer now_playing_video_id={this.state.now_playing_video_id} />
-        <RankingList ranking_list={this.state.ranking_list} />
+        <RankingList ranking_list={this.state.ranking_list} onTapSong={this.onTapSong.bind(this)} />
       </div>
     );
   }

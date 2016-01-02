@@ -5,9 +5,13 @@ export default class YoutubePlayer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      now_playing_video_id: props.now_playing_video_id,
       player: null
     };
+    
+    this.onReady = this.onReady.bind(this);
+    // this.onChangeVideo = this.onChangeVideo.bind(this);
+    // this.onPlayVideo = this.onPlayVideo.bind(this);
+    // this.onPauseVideo = this.onPauseVideo.bind(this);
   };
 
   onReady(event) {
@@ -16,8 +20,15 @@ export default class YoutubePlayer extends React.Component {
   }
 
   render() {
+    const opts = {
+      height: '390',
+      width: '640',
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        autoplay: 1
+      }
+    };
     return (
-      <YouTube videoId="2g811Eo7K8U" onReady={this.onReady} />
+      <YouTube videoId={this.props.now_playing_video_id} onReady={this.onReady} opts={opts} />
     );
   };
 };
