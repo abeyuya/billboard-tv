@@ -17,6 +17,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "gulp": "^3.9.0",
+    "gulp-awspublish": "^3.0.1",
     "gulp-shell": "^0.5.1",
     "http-server": "^0.8.5",
     "run-sequence": "^1.1.5",
@@ -25,6 +26,7 @@
   "scripts": {
     "start": "gulp server",
     "build:dev": "gulp build:development",
+    "deploy": "gulp deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "abeyuya",
