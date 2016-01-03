@@ -16,7 +16,15 @@ export default class YoutubePlayer extends React.Component {
 
   onReady(event) {
     this.setState({player: event.target});
-    this.state.player.playVideo();
+  }
+  
+  getVideoId() {
+    // console.log('ranking_list: ' + this.props.ranking_list);
+    // console.log('rank: '         + this.props.now_playing_id);
+    if (this.props.ranking_list === [] || this.props.now_playing_id === null) {
+      return '';
+    }
+    return this.props.ranking_list[this.props.now_playing_id - 1].video_id;
   }
 
   render() {
@@ -28,7 +36,7 @@ export default class YoutubePlayer extends React.Component {
       }
     };
     return (
-      <YouTube videoId={this.props.now_playing_video_id} onReady={this.onReady} opts={opts} />
+      <YouTube videoId={this.getVideoId()} onReady={this.onReady} opts={opts} />
     );
   };
 };
