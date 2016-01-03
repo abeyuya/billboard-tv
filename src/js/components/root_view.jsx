@@ -13,6 +13,7 @@ export default class RootView extends React.Component {
       now_playing_id: null
     };
     this.onTapSong = this.onTapSong.bind(this);
+    this.playNextVideo = this.playNextVideo.bind(this);
   }
   
   componentDidMount(){
@@ -39,12 +40,26 @@ export default class RootView extends React.Component {
     this.setState({now_playing_id: rank});
   }
   
+  playNextVideo() {
+    var now_playing_id_number = Number(this.state.now_playing_id);
+    var next_id;
+    if (now_playing_id_number === 100) {
+      next_id = 1;
+    } else {
+      next_id = now_playing_id_number + 1;
+    }
+    this.setState({now_playing_id: next_id});
+  }
+  
   render(){
     // console.log(this.state.now_playing_video_id);
     return (
       <div className="root_view">
         <RankingDate   ranking_date={this.state.ranking_date} />
-        <YoutubePlayer ranking_list={this.state.ranking_list} now_playing_id={this.state.now_playing_id} />
+        <YoutubePlayer
+          ranking_list={this.state.ranking_list}
+          playNextVideo={this.playNextVideo}
+          now_playing_id={this.state.now_playing_id} />
         <RankingList   ranking_list={this.state.ranking_list} onTapSong={this.onTapSong} />
       </div>
     );

@@ -2,6 +2,7 @@ import React from 'react';
 import YouTube from 'react-youtube';
 
 export default class YoutubePlayer extends React.Component {
+  
   constructor(props){
     super(props);
     this.state = {
@@ -9,6 +10,7 @@ export default class YoutubePlayer extends React.Component {
     };
     
     this.onReady = this.onReady.bind(this);
+    this.onStateChange = this.onStateChange.bind(this);
     // this.onChangeVideo = this.onChangeVideo.bind(this);
     // this.onPlayVideo = this.onPlayVideo.bind(this);
     // this.onPauseVideo = this.onPauseVideo.bind(this);
@@ -16,6 +18,15 @@ export default class YoutubePlayer extends React.Component {
 
   onReady(event) {
     this.setState({player: event.target});
+  }
+  
+  onStateChange(e) {
+    // console.log('onStateChange: ' + e.data);
+    const finish_play_state = 0;
+    
+    if (e.data === finish_play_state) {
+      this.props.playNextVideo();
+    }
   }
   
   getVideoId() {
@@ -36,7 +47,11 @@ export default class YoutubePlayer extends React.Component {
       }
     };
     return (
-      <YouTube videoId={this.getVideoId()} onReady={this.onReady} opts={opts} />
+      <YouTube
+        videoId={this.getVideoId()}
+        onReady={this.onReady}
+        onStateChange={this.onStateChange}
+        opts={opts} />
     );
   };
 };
