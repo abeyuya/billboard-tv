@@ -4,7 +4,7 @@ export default class RankingDate extends React.Component {
   render() {
     // console.log('date: ' + this.props.ranking_date);
     return (
-      <div className="ranking_date">{this.props.ranking_date}</div>
+      <h2 className="ranking_date">{this.props.ranking_date}</h2>
     );
   }
 };

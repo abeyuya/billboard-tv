@@ -1,5 +1,6 @@
 import React         from 'react';
 import request       from 'superagent';
+import NowPlaying    from './now_playing.jsx';
 import RankingList   from './ranking_list.jsx';
 import RankingDate   from './ranking_date.jsx';
 import YoutubePlayer from './youtube_player.jsx';
@@ -55,12 +56,18 @@ export default class RootView extends React.Component {
     // console.log(this.state.now_playing_video_id);
     return (
       <div className="root_view">
-        <RankingDate   ranking_date={this.state.ranking_date} />
+        <NowPlaying
+          ranking_list={this.state.ranking_list}
+          now_playing_id={this.state.now_playing_id} />
+        <RankingDate
+          ranking_date={this.state.ranking_date} />
         <YoutubePlayer
           ranking_list={this.state.ranking_list}
           playNextVideo={this.playNextVideo}
           now_playing_id={this.state.now_playing_id} />
-        <RankingList   ranking_list={this.state.ranking_list} onTapSong={this.onTapSong} />
+        <RankingList
+          ranking_list={this.state.ranking_list}
+          onTapSong={this.onTapSong} />
       </div>
     );
   }
