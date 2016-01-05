@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import GoogleAnalytics from 'react-g-analytics'
 
 export default class Layout extends React.Component {
   render(){
@@ -16,6 +17,7 @@ export default class Layout extends React.Component {
         <footer>
           <p>footerだよ</p>
         </footer>
+        <GoogleAnalytics id="xxxx" />
       </div>
     )
   }
