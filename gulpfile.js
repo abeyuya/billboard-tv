@@ -4,9 +4,18 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var shell = require('gulp-shell')
 var awspublish = require('gulp-awspublish');
+var rev = require('gulp-rev');
 
 var SRC_DIR = './src';
 var DIST_DIR = './build';
+
+// var handlebarOpts = {
+//   helpers: {
+//     assetPath: function(path, context) {
+//       return ['/assets', context.data.root[path]].join('/');
+//     }
+//   }
+// };
 
 gulp.task('compile:html', function() {
   // コピーするだけ
@@ -32,6 +41,17 @@ gulp.task('compile:js:development', shell.task([
 
 gulp.task('compile:js:production', shell.task([
   './node_modules/.bin/webpack -p'
+]));
+
+gulp.task('assets:js', function(){
+  // ビルド済みファイルに対して行う
+  return gulp.src('build/js/application.js')
+    .pipe(rev())
+    .pipe(gulp.dest('build/js'));
+});
+
+gulp.task('rm:js', shell.task([
+  'rm ./build/js/application.js'
 ]));
 
 gulp.task('watch', function() {
@@ -60,6 +80,8 @@ gulp.task('build:production', function(callback) {
     'clean',
     'compile:html',
     'compile:js:production',
+    'assets:js',
+    'rm:js',
     callback
   );
 });
@@ -90,21 +112,21 @@ gulp.task('publish', function() {
       Bucket: 'xxxx'
     }
   });
- 
+  
   var headers = {
     'Cache-Control': 'max-age=315360000, no-transform, public'
     // ...
   };
- 
+  
   return gulp.src('./build/**/*')
-    // gzip, Set Content-Encoding headers and add .gz extension
-    // .pipe(awspublish.gzip({ ext: '.gz' }))
- 
-    // publisher will add Content-Length, Content-Type and headers specified above
-    // If not specified it will set x-amz-acl to public-read by default
-    // .pipe(publisher.publish(headers))
-    // create a cache file to speed up consecutive uploads
-    .pipe(publisher.cache())
-     // print upload updates to console
-    .pipe(awspublish.reporter());
+  // gzip, Set Content-Encoding headers and add .gz extension
+  // .pipe(awspublish.gzip({ ext: '.gz' }))
+  
+  // publisher will add Content-Length, Content-Type and headers specified above
+  // If not specified it will set x-amz-acl to public-read by default
+  // .pipe(publisher.publish(headers))
+  // create a cache file to speed up consecutive uploads
+  .pipe(publisher.cache())
+  // print upload updates to console
+  .pipe(awspublish.reporter());
 });
