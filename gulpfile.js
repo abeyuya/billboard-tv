@@ -3,30 +3,41 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var shell = require('gulp-shell')
+
+// deploy
 var awspublish = require('gulp-awspublish');
+
+// asset
 var rev = require('gulp-rev');
+var fs = require('fs');
+var handlebars = require('gulp-compile-handlebars');
+var rename = require('gulp-rename');
 
 var SRC_DIR = './src';
 var DIST_DIR = './build';
 
-// var handlebarOpts = {
-//   helpers: {
-//     assetPath: function(path, context) {
-//       return ['/assets', context.data.root[path]].join('/');
-//     }
-//   }
-// };
-
 gulp.task('compile:html', function() {
-  // コピーするだけ
-  return gulp.src([SRC_DIR + '/**/*.html'], {base: 'src'})
-  .pipe(gulp.dest(DIST_DIR));
+  var handlebarOpts = {
+    helpers: {
+      assetPath: function(path, context) {
+        return ['/js', context.data.root[path]].join('/');
+      }
+    }
+  };
+  var manifest = JSON.parse(fs.readFileSync('./build/rev-manifest.json', 'utf8'));
+  
+  // read in our handlebars template, compile it using
+  // our manifest, and output it to index.html
+  return gulp.src('src/index.hbs', {base: 'src'})
+    .pipe(handlebars(manifest, handlebarOpts))
+    .pipe(rename('index.html'))
+    .pipe(gulp.dest('build'));
 });
 
 gulp.task('compile:json', function() {
-  // コピーするだけ
+  // copy only
   return gulp.src([SRC_DIR + '/**/*.json'], {base: 'src'})
-  .pipe(gulp.dest(DIST_DIR));
+    .pipe(gulp.dest(DIST_DIR));
 });
 
 // TODO: cssのビルドが必要なら追加する
@@ -43,8 +54,15 @@ gulp.task('compile:js:production', shell.task([
   './node_modules/.bin/webpack -p'
 ]));
 
+gulp.task('assets:manifest', function () {
+  return gulp.src(['build/js/application.js'])
+    .pipe(rev())
+    .pipe(rev.manifest())
+    .pipe(gulp.dest('build/')); // write manifest to build dir
+});
+
 gulp.task('assets:js', function(){
-  // ビルド済みファイルに対して行う
+  // add asset hash to build js
   return gulp.src('build/js/application.js')
     .pipe(rev())
     .pipe(gulp.dest('build/js'));
@@ -68,9 +86,11 @@ gulp.task('start-dev-server', shell.task([
 gulp.task('build:development', function(callback) {
   runSequence(
     'clean',
+    'compile:js:development',
+    'assets:manifest',
+    'assets:js',
     'compile:html',
     'compile:json',
-    'compile:js:development',
     callback
   );
 });
@@ -78,9 +98,11 @@ gulp.task('build:development', function(callback) {
 gulp.task('build:production', function(callback) {
   runSequence(
     'clean',
-    'compile:html',
     'compile:js:production',
+    'assets:manifest',
     'assets:js',
+    'compile:html',
+    'compile:json',
     'rm:js',
     callback
   );
