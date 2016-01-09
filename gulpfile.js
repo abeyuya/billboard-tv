@@ -68,8 +68,13 @@ gulp.task('assets:js', function(){
     .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('rm:js', shell.task([
-  'rm ./build/js/application.js'
+gulp.task('rm_extra_file:production', shell.task([
+  'rm ./build/js/application.js',
+  'rm ./build/rev-manifest.json'
+]));
+
+gulp.task('rm_extra_file:deploy', shell.task([
+  'rm ./build/ranking.json'
 ]));
 
 gulp.task('watch', function() {
@@ -103,7 +108,7 @@ gulp.task('build:production', function(callback) {
     'assets:js',
     'compile:html',
     'compile:json',
-    'rm:js',
+    'rm_extra_file:production',
     callback
   );
 });
@@ -120,6 +125,7 @@ gulp.task('server', function(callback) {
 gulp.task('deploy', function(callback) {
   runSequence(
     'build:production',
+    'rm_extra_file:deploy',
     'publish',
     callback
   );
@@ -137,7 +143,6 @@ gulp.task('publish', function() {
   
   var headers = {
     'Cache-Control': 'max-age=315360000, no-transform, public'
-    // ...
   };
   
   return gulp.src('./build/**/*')
@@ -146,7 +151,7 @@ gulp.task('publish', function() {
   
   // publisher will add Content-Length, Content-Type and headers specified above
   // If not specified it will set x-amz-acl to public-read by default
-  // .pipe(publisher.publish(headers))
+  .pipe(publisher.publish(headers))
   // create a cache file to speed up consecutive uploads
   .pipe(publisher.cache())
   // print upload updates to console
