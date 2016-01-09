@@ -79,9 +79,10 @@ gulp.task('rm_extra_file:deploy', shell.task([
 
 gulp.task('watch', function() {
   gulp.watch(SRC_DIR + '/**/*.html', ['compile:html']);
+  gulp.watch(SRC_DIR + '/**/*.hbs',  ['compile:hbs']);
   gulp.watch(SRC_DIR + '/**/*.json', ['compile:json']);
-  gulp.watch(SRC_DIR + '/**/*.js',   ['compile:js:development']);
-  gulp.watch(SRC_DIR + '/**/*.jsx',  ['compile:js:development']);
+  gulp.watch(SRC_DIR + '/**/*.js',   ['build:development']);
+  gulp.watch(SRC_DIR + '/**/*.jsx',  ['build:development']);
 });
 
 gulp.task('start-dev-server', shell.task([
@@ -91,11 +92,18 @@ gulp.task('start-dev-server', shell.task([
 gulp.task('build:development', function(callback) {
   runSequence(
     'clean',
+    'build:js:development',
+    'compile:html',
+    'compile:json',
+    callback
+  );
+});
+
+gulp.task('build:js:development', function(callback) {
+  runSequence(
     'compile:js:development',
     'assets:manifest',
     'assets:js',
-    'compile:html',
-    'compile:json',
     callback
   );
 });

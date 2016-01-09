@@ -9,8 +9,8 @@ ReactDom.render((
   <Router history={browserHistory}>
     <Route path="/" component={Layout}>
       <IndexRoute component={Index} />
+      <Route path="index" component={Index} />
       <Route path="about" component={About} />
-      <Route path="inbox" component={Index} />
     </Route>
   </Router>),
   document.getElementById('container')
