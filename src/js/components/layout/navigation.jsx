@@ -1,16 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { Navbar, NavItem, Nav } from 'react-bootstrap';
 
 export default class Navigation extends React.Component {
   render(){
     return(
-      <nav>
-        <ul>
-          <li>ヘッダーだよ</li>
-          <li><Link to="/index">Index</Link></li>
-          <li><Link to="/about">About</Link></li>
-        </ul>
+      <nav className="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <Link className="navbar-brand" to="/">BILLBOARD-TV</Link>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><Link to="/about">About</Link></li>
+            </ul>
+          </div>
+        </div>
       </nav>
     )
   }
