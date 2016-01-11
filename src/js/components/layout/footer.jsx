@@ -4,6 +4,7 @@ export default class Footer extends React.Component {
   render(){
     return(
       <footer className="text-center">
+        <hr />
         <a href="https://twitter.com/billboard___tv" target="_blank">@billboard___tv</a>
       </footer>
     )

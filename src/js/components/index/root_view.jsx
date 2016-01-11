@@ -61,13 +61,13 @@ export default class RootView extends React.Component {
     if (record === undefined) {
       title = 'BILLBOARD-TV';
     } else {
-      title = record.title + ' by ' + record.artist;
+      title = record.title + ' / ' + record.artist;
     }
     return (
       <DocumentTitle title={title}>
         <div className="container">
           <div className="row">
-            <div className="col-md-9 center-block text-center" id="playerWidth">
+            <div className="col-md-9 text-left" id="playerWidth">
               <NowPlaying
                 ranking_list={this.state.ranking_list}
                 now_playing_id={this.state.now_playing_id} />

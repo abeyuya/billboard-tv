@@ -38,7 +38,7 @@ export default class YoutubePlayer extends React.Component {
   }
   
   getPlayerWidth() {
-    return 800;
+    return 855;
     // var base_dom = document.getElementById('playerWidth');
     // if (base_dom === null) return 640;
     // return base_dom.clientWidth;
@@ -46,7 +46,7 @@ export default class YoutubePlayer extends React.Component {
 
   render() {
     const opts = {
-      height: String(this.getPlayerWidth() * 0.61),
+      height: String(this.getPlayerWidth() * 0.5625), // 16:9
       width: String(this.getPlayerWidth()),
       playerVars: { // https://developers.google.com/youtube/player_parameters
         autoplay: 1
