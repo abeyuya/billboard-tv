@@ -40,8 +40,6 @@ gulp.task('compile:json', function() {
     .pipe(gulp.dest(DIST_DIR));
 });
 
-// TODO: cssのビルドが必要なら追加する
-
 gulp.task('clean', shell.task([
   'rm -rf ./build'
 ]));

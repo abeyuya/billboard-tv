@@ -1,9 +1,9 @@
 {
-  "name": "billtube-frontend",
+  "name": "billboard-tv",
   "version": "1.0.0",
-  "description": "billtube-frontend",
-  "main": "index.js",
-  "repository": "git@bitbucket.org:abeyuya/billtube-frontend.git",
+  "description": "billboard-tv website.",
+  "main": "application.jsx",
+  "repository": "git@github.com:abeyuya/billboard-tv.git",
   "dependencies": {
     "history": "^1.17.0",
     "react": "^0.14.1",
