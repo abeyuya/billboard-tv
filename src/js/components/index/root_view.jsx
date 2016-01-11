@@ -65,22 +65,29 @@ export default class RootView extends React.Component {
     }
     return (
       <DocumentTitle title={title}>
-        <div className="row">
-          <div className="col-md-8 center-block text-center">
-            <RankingDate
-              ranking_date={this.state.ranking_date} />
-            <NowPlaying
-              ranking_list={this.state.ranking_list}
-              now_playing_id={this.state.now_playing_id} />
-            <YoutubePlayer
-              ranking_list={this.state.ranking_list}
-              playNextVideo={this.playNextVideo}
-              now_playing_id={this.state.now_playing_id} />
-          </div>
-          <div className="col-md-4">
-            <RankingList
-              ranking_list={this.state.ranking_list}
-              onTapSong={this.onTapSong} />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-9 center-block text-center" id="playerWidth">
+              <NowPlaying
+                ranking_list={this.state.ranking_list}
+                now_playing_id={this.state.now_playing_id} />
+              <YoutubePlayer
+                ranking_list={this.state.ranking_list}
+                playNextVideo={this.playNextVideo}
+                now_playing_id={this.state.now_playing_id} />
+            </div>
+            <div className="col-md-3">
+              <div className="panel panel-default">
+                <div className="panel-heading">
+                  <RankingDate
+                    ranking_date={this.state.ranking_date} />
+                </div>
+                
+                <RankingList
+                  ranking_list={this.state.ranking_list}
+                  onTapSong={this.onTapSong} />
+              </div>
+            </div>
           </div>
         </div>
       </DocumentTitle>

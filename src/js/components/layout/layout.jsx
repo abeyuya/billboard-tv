@@ -1,6 +1,7 @@
 import React from 'react'
 import GoogleAnalytics from 'react-g-analytics'
 import Navigation from './navigation.jsx'
+import Footer from './footer.jsx'
 
 export default class Layout extends React.Component {
   render(){
@@ -8,9 +9,7 @@ export default class Layout extends React.Component {
       <div>
         <Navigation />
         {this.props.children}
-        <footer>
-          <p>footerだよ</p>
-        </footer>
+        <Footer />
         <GoogleAnalytics id="xxxx" />
       </div>
     )

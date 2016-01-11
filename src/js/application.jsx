@@ -13,5 +13,5 @@ ReactDom.render((
       <Route path="about" component={About} />
     </Route>
   </Router>),
-  document.getElementById('container')
+  document.getElementById('Root')
 );

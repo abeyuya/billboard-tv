@@ -2,7 +2,6 @@ import React from 'react';
 import YouTube from 'react-youtube';
 
 export default class YoutubePlayer extends React.Component {
-  
   constructor(props){
     super(props);
     this.state = {
@@ -37,11 +36,18 @@ export default class YoutubePlayer extends React.Component {
     }
     return this.props.ranking_list[this.props.now_playing_id - 1].video_id;
   }
+  
+  getPlayerWidth() {
+    return 800;
+    // var base_dom = document.getElementById('playerWidth');
+    // if (base_dom === null) return 640;
+    // return base_dom.clientWidth;
+  }
 
   render() {
     const opts = {
-      height: '390',
-      width: '640',
+      height: String(this.getPlayerWidth() * 0.61),
+      width: String(this.getPlayerWidth()),
       playerVars: { // https://developers.google.com/youtube/player_parameters
         autoplay: 1
       }

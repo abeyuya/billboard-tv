@@ -9,11 +9,6 @@ export default class Navigation extends React.Component {
           <div class="navbar-header">
             <Link className="navbar-brand" to="/">BILLBOARD-TV</Link>
           </div>
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li><Link to="/about">About</Link></li>
-            </ul>
-          </div>
         </div>
       </nav>
     )
