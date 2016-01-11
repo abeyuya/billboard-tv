@@ -141,16 +141,16 @@ gulp.task('deploy', function(callback) {
 
 gulp.task('publish', function() {
   var publisher = awspublish.create({
-    region: 'xxxx',
-    accessKeyId: 'xxxx',
-    secretAccessKey: 'xxxx',
+    region: process.env.AWS_REGION,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     params: {
-      Bucket: 'xxxx'
+      Bucket: process.env.AWS_BUCKET
     }
   });
   
   var headers = {
-    'Cache-Control': 'max-age=315360000, no-transform, public'
+    'Cache-Control': 'max-age=0, no-transform, public'
   };
   
   return gulp.src('./build/**/*')
@@ -164,4 +164,8 @@ gulp.task('publish', function() {
   .pipe(publisher.cache())
   // print upload updates to console
   .pipe(awspublish.reporter());
+});
+
+gulp.task('debug', function() {
+  console.log('region: ' + process.env.AWS_REGION);
 });
