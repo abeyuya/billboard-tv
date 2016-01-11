@@ -4,6 +4,7 @@ import NowPlaying    from './now_playing.jsx';
 import RankingList   from './ranking_list.jsx';
 import RankingDate   from './ranking_date.jsx';
 import YoutubePlayer from './youtube_player.jsx';
+import DocumentTitle from 'react-document-title';
 
 export default class RootView extends React.Component {
   constructor(props) {
@@ -54,15 +55,23 @@ export default class RootView extends React.Component {
   
   render(){
     // console.log(this.state.now_playing_video_id);
+    var record = this.state.ranking_list[this.state.now_playing_id - 1];
+    // console.log(this.state.now_playing_video_id);
+    var title;
+    if (record === undefined) {
+      title = 'BILLBOARD-TV';
+    } else {
+      title = record.title + ' by ' + record.artist;
+    }
     return (
-      <div>
-        <NowPlaying
-          ranking_list={this.state.ranking_list}
-          now_playing_id={this.state.now_playing_id} />
-        <RankingDate
-          ranking_date={this.state.ranking_date} />
+      <DocumentTitle title={title}>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-8 center-block text-center">
+            <RankingDate
+              ranking_date={this.state.ranking_date} />
+            <NowPlaying
+              ranking_list={this.state.ranking_list}
+              now_playing_id={this.state.now_playing_id} />
             <YoutubePlayer
               ranking_list={this.state.ranking_list}
               playNextVideo={this.playNextVideo}
@@ -74,7 +83,7 @@ export default class RootView extends React.Component {
               onTapSong={this.onTapSong} />
           </div>
         </div>
-      </div>
+      </DocumentTitle>
     );
   }
 };
