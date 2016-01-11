@@ -39,6 +39,13 @@ export default class RankingList extends React.Component {
         textAlign: 'right'
       }
     }
+    
+    if (target === 'date') {
+      return {
+        fontSize: '1.1em',
+        fontWeight: 'bold'
+      };
+    }
   }
   
   render() {
@@ -68,12 +75,17 @@ export default class RankingList extends React.Component {
     }, this);
     // console.log('list:' + list);
     return (
-      <div style={this.styles('table')}>
-        <table className="table">
-          <tbody>
-            {list}
-          </tbody>
-        </table>
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          Ranking of <span style={this.styles('date')}>{this.props.ranking_date}</span>
+        </div>
+        <div style={this.styles('table')}>
+          <table className="table">
+            <tbody>
+              {list}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import React         from 'react';
 import request       from 'superagent';
 import NowPlaying    from './now_playing.jsx';
 import RankingList   from './ranking_list.jsx';
-import RankingDate   from './ranking_date.jsx';
 import YoutubePlayer from './youtube_player.jsx';
 import DocumentTitle from 'react-document-title';
 
@@ -77,16 +76,10 @@ export default class RootView extends React.Component {
                 now_playing_id={this.state.now_playing_id} />
             </div>
             <div className="col-md-3">
-              <div className="panel panel-default">
-                <div className="panel-heading">
-                  <RankingDate
-                    ranking_date={this.state.ranking_date} />
-                </div>
-                
-                <RankingList
-                  ranking_list={this.state.ranking_list}
-                  onTapSong={this.onTapSong} />
-              </div>
+              <RankingList
+                ranking_list={this.state.ranking_list}
+                ranking_date={this.state.ranking_date}
+                onTapSong={this.onTapSong} />
             </div>
           </div>
         </div>

@@ -12,11 +12,9 @@ export default class NowPlaying extends React.Component {
     // console.log('ranking_list:' + this.props.ranking_list);
     // console.log('now_playing_id:' + this.props.now_playing_id);
     return (
-      <div>
-        <h1 style={{marginTop:'0px', fontSize:'30px'}}>
-          {this.props.now_playing_id} - {record.title}<small> / {record.artist}</small>
-        </h1>
-      </div>
+      <h1 style={{marginTop:'0px', fontSize:'30px'}}>
+        {this.props.now_playing_id} - {record.title}<small> / {record.artist}</small>
+      </h1>
     );
   };
 };
