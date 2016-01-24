@@ -53,11 +53,17 @@ export default class YoutubePlayer extends React.Component {
       }
     };
     return (
-      <YouTube
-        videoId={this.getVideoId()}
-        onReady={this.onReady}
-        onStateChange={this.onStateChange}
-        opts={opts} />
+      <div>
+        <YouTube
+          videoId={this.getVideoId()}
+          onReady={this.onReady}
+          onStateChange={this.onStateChange}
+          opts={opts} />
+        <span
+          className="glyphicon glyphicon-forward"
+          aria-hidden="true"
+          onClick={this.props.playNextVideo}></span>
+      </div>
     );
   };
 };
