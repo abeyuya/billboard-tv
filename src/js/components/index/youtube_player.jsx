@@ -24,6 +24,11 @@ export default class YoutubePlayer extends React.Component {
     const finish_play_state = 0;
     
     if (e.data === finish_play_state) {
+      if (this.props.repeat) {
+        this.state.player.playVideo();
+        return;
+      }
+      
       this.props.playNextVideo();
     }
   }
@@ -43,6 +48,43 @@ export default class YoutubePlayer extends React.Component {
     // if (base_dom === null) return 640;
     // return base_dom.clientWidth;
   }
+  
+  styles(target) {
+    if (target === 'repeat') {
+      if (this.props.repeat) {
+        return {
+          margin: '30px',
+          border: 'solid 2px #FF0'
+        };
+      } else {
+        return {
+          margin: '30px',
+          border: 'solid 2px #FFF'
+        };
+      }
+    }
+    
+    if (target === 'next') {
+      return {
+        margin: '30px',
+        border: 'solid 2px #FFF'
+      };
+    }
+    
+    if (target === 'random') {
+      if (this.props.random) {
+        return {
+          margin: '30px',
+          border: 'solid 2px #0FF'
+        };
+      } else {
+        return {
+          margin: '30px',
+          border: 'solid 2px #FFF'
+        };
+      }
+    }
+  }
 
   render() {
     const opts = {
@@ -59,10 +101,12 @@ export default class YoutubePlayer extends React.Component {
           onReady={this.onReady}
           onStateChange={this.onStateChange}
           opts={opts} />
-        <span
-          className="glyphicon glyphicon-forward"
-          aria-hidden="true"
-          onClick={this.props.playNextVideo}></span>
+        <a style={this.styles('repeat')}
+           onClick={this.props.onTapRepeat}>REPEAT</a>
+        <a style={this.styles('next')}
+           onClick={this.props.playNextVideo}>NEXT</a>
+        <a style={this.styles('random')}
+           onClick={this.props.onTapRandom}>RANDOM</a>
       </div>
     );
   };

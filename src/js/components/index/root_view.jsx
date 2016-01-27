@@ -11,10 +11,14 @@ export default class RootView extends React.Component {
     this.state = {
       ranking_date: '',
       ranking_list: [],
-      now_playing_id: null
+      now_playing_id: null,
+      repeat: false,
+      random: false
     };
-    this.onTapSong = this.onTapSong.bind(this);
+    this.onTapSong     = this.onTapSong.bind(this);
     this.playNextVideo = this.playNextVideo.bind(this);
+    this.onTapRepeat   = this.onTapRepeat.bind(this);
+    this.onTapRandom   = this.onTapRandom.bind(this);
   }
   
   componentDidMount(){
@@ -43,6 +47,17 @@ export default class RootView extends React.Component {
   
   playNextVideo() {
     var now_playing_id_number = Number(this.state.now_playing_id);
+    
+    if (this.state.repeat) {
+      this.setState({now_playing_id: now_playing_id_number});
+      return;
+    }
+    
+    if (this.state.random) {
+      this.setState({now_playing_id: this.getRandomInt(1, 100)});
+      return;
+    }
+    
     var next_id;
     if (now_playing_id_number === 100) {
       next_id = 1;
@@ -50,6 +65,18 @@ export default class RootView extends React.Component {
       next_id = now_playing_id_number + 1;
     }
     this.setState({now_playing_id: next_id});
+  }
+  
+  getRandomInt(min, max){
+    return Math.floor( Math.random() * (max - min + 1) ) + min;
+  }
+  
+  onTapRepeat() {
+    this.setState({repeat: !this.state.repeat});
+  }
+  
+  onTapRandom() {
+    this.setState({random: !this.state.random});
   }
   
   render(){
@@ -73,6 +100,10 @@ export default class RootView extends React.Component {
               <YoutubePlayer
                 ranking_list={this.state.ranking_list}
                 playNextVideo={this.playNextVideo}
+                onTapRepeat={this.onTapRepeat}
+                onTapRandom={this.onTapRandom}
+                repeat={this.state.repeat}
+                random={this.state.random}
                 now_playing_id={this.state.now_playing_id} />
             </div>
             <div className="col-md-3">
