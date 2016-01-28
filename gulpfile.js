@@ -40,6 +40,12 @@ gulp.task('compile:json', function() {
     .pipe(gulp.dest(DIST_DIR));
 });
 
+gulp.task('compile:image', function() {
+  // copy only
+  return gulp.src([SRC_DIR + '/**/*.png'], {base: 'src'})
+    .pipe(gulp.dest(DIST_DIR));
+});
+
 gulp.task('clean', shell.task([
   'rm -rf ./build'
 ]));
@@ -93,6 +99,7 @@ gulp.task('build:development', function(callback) {
     'build:js:development',
     'compile:html',
     'compile:json',
+    'compile:image',
     callback
   );
 });
@@ -114,6 +121,7 @@ gulp.task('build:production', function(callback) {
     'assets:js',
     'compile:html',
     'compile:json',
+    'compile:image',
     'rm_extra_file:production',
     callback
   );
