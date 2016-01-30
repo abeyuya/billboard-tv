@@ -99,7 +99,7 @@ gulp.task('rm_extra_file:deploy', shell.task([
 gulp.task('watch', function() {
   gulp.watch(SRC_DIR + '/**/*.html', ['compile:html']);
   gulp.watch(SRC_DIR + '/**/*.hbs',  ['compile:html']);
-  gulp.watch(SRC_DIR + '/**/*.scss', ['compile:css']);
+  gulp.watch(SRC_DIR + '/**/*.scss', ['build:development']);
   gulp.watch(SRC_DIR + '/**/*.json', ['compile:json']);
   gulp.watch(SRC_DIR + '/**/*.js',   ['build:development']);
   gulp.watch(SRC_DIR + '/**/*.jsx',  ['build:development']);

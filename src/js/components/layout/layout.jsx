@@ -8,7 +8,9 @@ export default class Layout extends React.Component {
     return(
       <div>
         <Navigation />
-        {this.props.children}
+        <div className="container">
+          {this.props.children}
+        </div>
         <Footer />
         <GoogleAnalytics id="xxxx" />
       </div>

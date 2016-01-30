@@ -1,0 +1,10 @@
+body {
+  background: {
+    image: url('/image/back_pattern.png');
+    size: 40px;
+  }
+  
+  .container {
+    @include global_padding;
+  }
+}

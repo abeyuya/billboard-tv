@@ -1,5 +1,4 @@
-body {
-  background: {
-    image: url('/image/back_pattern.png');
-  }
-}
+@import 'mixin/style';
+@import 'style/global';
+@import 'style/navigation';
+@import 'style/youtube';

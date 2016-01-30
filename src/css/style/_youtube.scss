@@ -1,0 +1,60 @@
+.youtube {
+  @extend .clearfix;
+  
+  padding: 20px;
+  background: {
+    color: rgba(255, 255, 255, 0.05);
+  }
+  
+  &__now_playing {
+    @extend .clearfix;
+    margin-bottom: 20px;
+    
+    &--rank {
+      float: left;
+      color: #FFF;
+      font-size: 3.0em;
+      margin: {
+        top: 0;
+        bottom: 0;
+        right: 30px;
+      }
+    }
+    
+    &--title {
+      margin: 0;
+      padding-top: 5px;
+      color: #FFF;
+      font-size: 1.5em;
+    }
+    
+    &--artist {
+      margin: 0;
+      color: #666;
+      font-size: 1.0em;
+    }
+  }
+  
+  &__player {
+    float: left;
+  }
+  
+  &__ranking_list {
+    @extend .clearfix;
+    margin: {
+      top: -80px;
+      left: 620px;
+    }
+    
+    border: {
+      style: solid;
+      color: rgba(255, 255, 255, 0.1);
+      width: 2px;
+    }
+    
+    &--table {
+      height: 500px;
+      overflow: scroll;
+    }
+  }
+}

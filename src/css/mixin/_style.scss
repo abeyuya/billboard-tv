@@ -1,0 +1,12 @@
+@mixin global_padding {
+  padding: 0 50px;
+}
+
+.clearfix {
+  *zoom: 1;
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
