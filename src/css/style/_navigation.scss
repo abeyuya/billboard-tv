@@ -1,8 +1,8 @@
 nav.navigation {
-  @include global_padding;
+  @include global_centering;
   padding: {
-    top: 50px;
-    bottom: 50px;
+    top: 20px;
+    bottom: 40px;
   }
   
   a {

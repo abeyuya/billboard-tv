@@ -10,3 +10,9 @@
     clear: both;
   }
 }
+
+@mixin global_centering {
+  width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
