@@ -1,17 +1,18 @@
 'use strict';
 
-var gulp = require('gulp');
+var gulp        = require('gulp');
 var runSequence = require('run-sequence');
-var shell = require('gulp-shell')
+var shell       = require('gulp-shell');
+var sass        = require('gulp-sass');
 
 // deploy
 var awspublish = require('gulp-awspublish');
 
 // asset
-var rev = require('gulp-rev');
-var fs = require('fs');
+var rev        = require('gulp-rev');
+var fs         = require('fs');
 var handlebars = require('gulp-compile-handlebars');
-var rename = require('gulp-rename');
+var rename     = require('gulp-rename');
 
 var SRC_DIR = './src';
 var DIST_DIR = './build';
@@ -20,7 +21,7 @@ gulp.task('compile:html', function() {
   var handlebarOpts = {
     helpers: {
       assetPath: function(path, context) {
-        return ['/js', context.data.root[path]].join('/');
+        return ['', context.data.root[path]].join('/');
       }
     }
   };
@@ -40,6 +41,18 @@ gulp.task('compile:json', function() {
     .pipe(gulp.dest(DIST_DIR));
 });
 
+gulp.task('compile:image', function() {
+  // copy only
+  return gulp.src([SRC_DIR + '/**/*.png'], {base: 'src'})
+    .pipe(gulp.dest(DIST_DIR));
+});
+
+gulp.task("compile:css", function() {
+  return gulp.src([SRC_DIR + '/**/*.scss'], {base: 'src'})
+    .pipe(sass())
+    .pipe(gulp.dest(DIST_DIR));
+});
+
 gulp.task('clean', shell.task([
   'rm -rf ./build'
 ]));
@@ -53,7 +66,7 @@ gulp.task('compile:js:production', shell.task([
 ]));
 
 gulp.task('assets:manifest', function () {
-  return gulp.src(['build/js/application.js'])
+  return gulp.src('build/**/*')
     .pipe(rev())
     .pipe(rev.manifest())
     .pipe(gulp.dest('build/')); // write manifest to build dir
@@ -66,8 +79,16 @@ gulp.task('assets:js', function(){
     .pipe(gulp.dest('build/js'));
 });
 
+gulp.task('assets:css', function(){
+  // add asset hash to build css
+  return gulp.src('build/css/application.css')
+    .pipe(rev())
+    .pipe(gulp.dest('build/css'));
+});
+
 gulp.task('rm_extra_file:production', shell.task([
   'rm ./build/js/application.js',
+  'rm ./build/css/application.css',
   'rm ./build/rev-manifest.json'
 ]));
 
@@ -78,6 +99,7 @@ gulp.task('rm_extra_file:deploy', shell.task([
 gulp.task('watch', function() {
   gulp.watch(SRC_DIR + '/**/*.html', ['compile:html']);
   gulp.watch(SRC_DIR + '/**/*.hbs',  ['compile:html']);
+  gulp.watch(SRC_DIR + '/**/*.scss', ['build:development']);
   gulp.watch(SRC_DIR + '/**/*.json', ['compile:json']);
   gulp.watch(SRC_DIR + '/**/*.js',   ['build:development']);
   gulp.watch(SRC_DIR + '/**/*.jsx',  ['build:development']);
@@ -90,18 +112,14 @@ gulp.task('start-dev-server', shell.task([
 gulp.task('build:development', function(callback) {
   runSequence(
     'clean',
-    'build:js:development',
-    'compile:html',
-    'compile:json',
-    callback
-  );
-});
-
-gulp.task('build:js:development', function(callback) {
-  runSequence(
     'compile:js:development',
+    'compile:css',
     'assets:manifest',
     'assets:js',
+    'assets:css',
+    'compile:html',
+    'compile:json',
+    'compile:image',
     callback
   );
 });
@@ -110,10 +128,13 @@ gulp.task('build:production', function(callback) {
   runSequence(
     'clean',
     'compile:js:production',
+    'compile:css',
     'assets:manifest',
     'assets:js',
+    'assets:css',
     'compile:html',
     'compile:json',
+    'compile:image',
     'rm_extra_file:production',
     callback
   );

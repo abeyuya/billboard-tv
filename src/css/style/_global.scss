@@ -1,0 +1,11 @@
+body {
+  background: {
+    color: #000;
+    image: url('/image/back_pattern.png');
+    size: 40px;
+  }
+  
+  .container {
+    @include global_centering;
+  }
+}

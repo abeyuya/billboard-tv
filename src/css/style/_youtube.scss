@@ -1,0 +1,163 @@
+.youtube {
+  @extend .clearfix;
+  margin: 0 auto;
+  
+  padding: 20px;
+  background: {
+    color: rgba(255, 255, 255, 0.05);
+  }
+  
+  $player_width: 600px;
+  $player_height: $player_width * 0.5625;
+  
+  &__now_playing {
+    @extend .clearfix;
+    margin-bottom: 5px;
+    width: $player_width;
+    
+    &--rank {
+      float: left;
+      color: #FFF;
+      font-size: 3.0em;
+      margin: {
+        top: 0;
+        bottom: 0;
+        right: 30px;
+      }
+    }
+    
+    &--title {
+      margin: 0;
+      padding-top: 5px;
+      color: #FFF;
+      font-size: 1.5em;
+    }
+    
+    &--artist {
+      margin: 0;
+      color: #666;
+      font-size: 1.0em;
+    }
+  }
+  
+  &__ranking_list {
+    @extend .clearfix;
+    margin: {
+      top: -65px;
+      left: $player_width + 20px;
+    }
+    
+    border: {
+      style: solid;
+      color: rgba(255, 255, 255, 0.1);
+      width: 1px;
+    }
+    
+    &--header {
+      color: #FFF;
+      text-align: center;
+      height: 63px;
+      
+      border: {
+        bottom: {
+          style: solid;
+          color: rgba(255, 255, 255, 0.1);
+          width: 1px;
+        }
+      }
+      
+      div {
+        padding-top: 22px;
+      }
+    }
+    
+    &--table {
+      height: $player_height;
+      width: 100%;
+      overflow: scroll;
+      
+      &--song{
+        padding: 5px 0;
+        border: {
+          bottom: {
+            style: solid;
+            color: rgba(255, 255, 255, 0.1);
+            width: 1px;
+          }
+        }
+        
+        &--rank {
+          width: 40px;
+          color: #FFF;
+          text-align: center;
+        }
+        
+        &--thum {
+          width: 100px;
+        }
+        
+        &--info {
+          padding-left: 10px;
+          
+          &--title {
+            color: #FFF;
+          }
+          &--artist {
+            color: #666;
+          }
+        }
+      }
+    }
+  }
+  
+  &__player {
+    float: left;
+    width: $player_width;
+    height: $player_height;
+    position: relative;
+    overflow: hidden;
+    
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+}
+
+.youtube_controller {
+  margin: {
+    top: 20px;
+  }
+  text-align: center;
+  
+  @mixin circle($color) {
+    cursor: pointer;
+    display: inline-block;
+    color: $color;
+    width: 100px;
+    height: 100px;
+    @include border_radius(50%);
+    margin: 0 20px;
+    
+    border: {
+      style: solid;
+      width: 1px;
+      color: $color;
+    }
+    
+    div {
+      padding-top: 40px;
+    }
+  }
+  
+  &--circle {
+    @include circle(#FFF);
+
+    &--active {
+      @include circle(#FF0);
+    }
+  }
+}

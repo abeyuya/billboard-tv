@@ -43,47 +43,10 @@ export default class YoutubePlayer extends React.Component {
   }
   
   getPlayerWidth() {
-    return 855;
+    return 600;
     // var base_dom = document.getElementById('playerWidth');
     // if (base_dom === null) return 640;
     // return base_dom.clientWidth;
-  }
-  
-  styles(target) {
-    if (target === 'repeat') {
-      if (this.props.repeat) {
-        return {
-          margin: '30px',
-          border: 'solid 2px #FF0'
-        };
-      } else {
-        return {
-          margin: '30px',
-          border: 'solid 2px #FFF'
-        };
-      }
-    }
-    
-    if (target === 'next') {
-      return {
-        margin: '30px',
-        border: 'solid 2px #FFF'
-      };
-    }
-    
-    if (target === 'random') {
-      if (this.props.random) {
-        return {
-          margin: '30px',
-          border: 'solid 2px #0FF'
-        };
-      } else {
-        return {
-          margin: '30px',
-          border: 'solid 2px #FFF'
-        };
-      }
-    }
   }
 
   render() {
@@ -95,18 +58,12 @@ export default class YoutubePlayer extends React.Component {
       }
     };
     return (
-      <div>
+      <div className="youtube__player">
         <YouTube
           videoId={this.getVideoId()}
           onReady={this.onReady}
           onStateChange={this.onStateChange}
           opts={opts} />
-        <a style={this.styles('repeat')}
-           onClick={this.props.onTapRepeat}>REPEAT</a>
-        <a style={this.styles('next')}
-           onClick={this.props.playNextVideo}>NEXT</a>
-        <a style={this.styles('random')}
-           onClick={this.props.onTapRandom}>RANDOM</a>
       </div>
     );
   };

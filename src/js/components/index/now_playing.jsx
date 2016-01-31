@@ -12,9 +12,11 @@ export default class NowPlaying extends React.Component {
     // console.log('ranking_list:' + this.props.ranking_list);
     // console.log('now_playing_id:' + this.props.now_playing_id);
     return (
-      <h1 style={{marginTop:'0px', fontSize:'30px'}}>
-        {this.props.now_playing_id} - {record.title}<small> / {record.artist}</small>
-      </h1>
+      <div className="youtube__now_playing">
+        <p className="youtube__now_playing--rank">{this.props.now_playing_id}</p>
+        <p className="youtube__now_playing--title">{record.title}</p>
+        <p className="youtube__now_playing--artist">{record.artist}</p>
+      </div>
     );
   };
 };

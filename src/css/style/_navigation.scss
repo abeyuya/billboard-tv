@@ -1,0 +1,13 @@
+nav.navigation {
+  @include global_centering;
+  padding: {
+    top: 20px;
+    bottom: 40px;
+  }
+  
+  a {
+    font-size: 1.5em;
+    color: #FFF;
+    text-decoration: none;
+  }
+}
