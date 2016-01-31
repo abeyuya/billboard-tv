@@ -12,7 +12,7 @@
   
   &__now_playing {
     @extend .clearfix;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     width: $player_width;
     
     &--rank {
@@ -43,7 +43,7 @@
   &__ranking_list {
     @extend .clearfix;
     margin: {
-      top: -80px;
+      top: -65px;
       left: $player_width + 20px;
     }
     
@@ -56,10 +56,23 @@
     &--header {
       color: #FFF;
       text-align: center;
+      height: 63px;
+      
+      border: {
+        bottom: {
+          style: solid;
+          color: rgba(255, 255, 255, 0.1);
+          width: 1px;
+        }
+      }
+      
+      div {
+        padding-top: 22px;
+      }
     }
     
     &--table {
-      height: $player_height + 26px;
+      height: $player_height;
       width: 100%;
       overflow: scroll;
       
@@ -121,6 +134,7 @@
   text-align: center;
   
   @mixin circle($color) {
+    cursor: pointer;
     display: inline-block;
     color: $color;
     width: 100px;

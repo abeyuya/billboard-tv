@@ -11,7 +11,7 @@ export default class Layout extends React.Component {
         <div className="container">
           {this.props.children}
         </div>
-        <Footer />
+        { /*<Footer />*/ }
         <GoogleAnalytics id="xxxx" />
       </div>
     )

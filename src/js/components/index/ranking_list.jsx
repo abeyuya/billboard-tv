@@ -32,7 +32,9 @@ export default class RankingList extends React.Component {
     // console.log('list:' + list);
     return (
       <div className="youtube__ranking_list">
-        <p className="youtube__ranking_list--header">Ranking of {this.props.ranking_date}</p>
+        <div className="youtube__ranking_list--header">
+          <div>Ranking of {this.props.ranking_date}</div>
+        </div>
         <div className="youtube__ranking_list--table">
           <table>
             <tbody>
