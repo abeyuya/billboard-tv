@@ -76,7 +76,8 @@
       width: 100%;
       overflow: scroll;
       
-      &--song{
+      &--song {
+        cursor: pointer;
         padding: 5px 0;
         border: {
           bottom: {
